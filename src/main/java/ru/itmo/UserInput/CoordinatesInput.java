@@ -5,6 +5,7 @@ import ru.itmo.Console.Console;
 import ru.itmo.UserInput.InputFromFile.ScannerFile;
 import ru.itmo.utils.CoordinateFormatException;
 import ru.itmo.utils.EmptyInputException;
+import ru.itmo.utils.PartNumberFormatException;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -21,7 +22,9 @@ public class CoordinatesInput {
         float y;
         while (true) {
             try {
+                if (!ScannerFile.getUseFile()) {
                 console.print("введите координаты x y: ");
+                }
                 var coordinates = ScannerFile.getScanner().nextLine().trim().split(" ", 2);
                 if (coordinates.length == 0) {throw new EmptyInputException();
                 }
@@ -31,11 +34,11 @@ public class CoordinatesInput {
                 break;
 
             } catch (EmptyInputException e) {
-                console.print("вы ничего не ввели");
+                console.printErr("вы ничего не ввели");
             } catch (NumberFormatException e) {
-                console.print("вы неверно ввели данные");
+                console.printErr("вы неверно ввели данные");
             } catch (CoordinateFormatException e) {
-                console.print("неправильно ввели координаты");
+                console.printErr("неправильно ввели координаты");
             }
 
         }

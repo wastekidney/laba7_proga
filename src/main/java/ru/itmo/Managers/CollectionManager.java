@@ -29,7 +29,7 @@ public class CollectionManager {
 
     public void addStack(Product product){
         stack.push(product);
-        System.out.println(stack);
+        System.out.println(stack.getLast());
     }
     public void popStack(){
         stack.pop();
@@ -42,6 +42,7 @@ public class CollectionManager {
     }
     public void clearStack(){
         stack.clear();
+        System.out.println("коллекция пуста");
     }
 //    public LocalDateTime infoCollection(){
 //        return getInitialisationTime();
@@ -61,9 +62,6 @@ public class CollectionManager {
         for (Product product : stack) {
             if (product.getName().contains(filterName) ){
                 System.out.println(product.toString());
-            }
-            else  {
-                System.out.println(filterName + " not found");
             }
             }
         }

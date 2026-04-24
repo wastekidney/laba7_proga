@@ -22,7 +22,12 @@ public class Add extends Command{
     public void execute(String element) {
         try {
             if (element != null) throw new ElementException();
-            collectionManager.addStack(new ProductInput(console).askProduct());
+            Product product = new ProductInput(console).askProduct();
+            if (product.validate()){
+                collectionManager.addStack(product);
+            } else {
+                console.println("продукт не создан так как не соответсвует валидации");
+            };
         } catch (ElementException e) {
             console.printErr("в этой команде не должны быть элементы");
         }

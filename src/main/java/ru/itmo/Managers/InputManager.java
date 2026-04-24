@@ -2,6 +2,7 @@ package ru.itmo.Managers;
 
 import ru.itmo.Console.Console;
 import ru.itmo.UserInput.ProductInput;
+import ru.itmo.utils.EmptyInputException;
 import ru.itmo.utils.NonExistentCommandExeption;
 import ru.itmo.utils.ScriptRecursionException;
 import ru.itmo.utils.State;
@@ -32,10 +33,13 @@ public class InputManager {
 
     public void asked(){
         String commandName;
+        String command;
         do {
             console.println("введите команду");
             String commandElement = null;
-            String command = ScannerFile.getScanner().nextLine().trim();
+            command = ScannerFile.getScanner().nextLine().trim();
+            if (command.isEmpty()) continue;
+
             var commandSplit = command.split(" ", 2);
             commandName = commandSplit[0].trim().toLowerCase();
             if (!command.equals(commandName)) {
@@ -55,7 +59,7 @@ public class InputManager {
 
     public void script(String nameFile) {
         scriptStack.add(nameFile); //рекурсия
-        String commandName;
+        String commandName = "";
         String commandElement;
         File file = new File(nameFile);
         if (!file.exists()) {
@@ -67,30 +71,34 @@ public class InputManager {
             ScannerFile.setUseFile();
             ScannerFile.setScanner(scriptScanner);
             if (!scriptScanner.hasNextLine()) {
-                console.print("Файл скрипта пуст");
+                console.printErr("Файл скрипта пуст");
                 return;
             }
             do {
-                commandName = "";
                 commandElement = null;
-                String command = scriptScanner.nextLine().trim();
+                String command;
+
+                if (scriptScanner.hasNextLine()) {
+                command = scriptScanner.nextLine().trim();
+                if (command.isEmpty()) {continue;}
                 var commandSplit = command.split(" ", 2);
                 commandName = commandSplit[0].trim().toLowerCase();
 
                 if (!command.equals(commandName)) {
                     commandElement = commandSplit[1].trim().toLowerCase();
-                }
+                }} else {break;}
 
                 while (scriptScanner.hasNextLine() && commandName.isEmpty()){
                     commandElement = null;
                     command = scriptScanner.nextLine().trim();
-                    commandSplit = command.split(" ", 2);
+                    if (command.isEmpty()) {continue;}
+                    var commandSplit = command.split(" ", 2);
                     commandName = commandSplit[0].trim().toLowerCase();
                     if (!command.equals(commandName)) {
                         commandElement = commandSplit[1].trim().toLowerCase();
                     }
                     }
-                if (commandName.equals("executescript")) {
+                if (commandName.equals("execute_script")) {
                     for (String script:  scriptStack) {
                         if (commandElement.equals(script)) throw new ScriptRecursionException();
                     }
@@ -103,9 +111,9 @@ public class InputManager {
             } while (state != State.EXIT);
 
         } catch (FileNotFoundException e) {
-            console.print("файл не найден");
+            console.printErr("файл не найден");
         } catch (ScriptRecursionException e){
-            console.print("файл вызывает рекурсию");
+            console.printErr("файл вызывает рекурсию");
         } finally {
             scriptStack.removeLast();
             ScannerFile.setScanner(this.scanner);

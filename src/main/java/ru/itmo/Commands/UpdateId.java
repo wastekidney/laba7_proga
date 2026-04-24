@@ -28,6 +28,8 @@ public class UpdateId extends Command{
             Product newProduct = new ProductInput(console).askProduct();
             product.update(newProduct);
 
+
+
         } catch (NotFoundException exception) {
             console.printErr("id не найден");
         } catch (EmptyInputException e) {

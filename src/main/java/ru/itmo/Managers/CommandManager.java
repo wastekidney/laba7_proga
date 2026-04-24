@@ -2,24 +2,27 @@ package ru.itmo.Managers;
 
 import ru.itmo.Collection.Product;
 import ru.itmo.Commands.Command;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class CommandManager {
 
-    private final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, Command> commands = new TreeMap<>();
 
 
-    public void register(String commandName, Command command) {
-        commands.put(commandName, command);
+    public void register(Command command) {
+        commands.put(command.getCommandName(), command);
     }
     public void doing(String name, String element){
         Command command = commands.get(name);
+        if (command == null) {
+            System.out.println("Команда '" + name + "' не найдена");
+        } else {
         command.execute(element);
+        }
     }
 
-    public Map getCommands() {
-        return commands;
+    public Collection<Command> getCommands() {
+        return commands.values();
     }
 }

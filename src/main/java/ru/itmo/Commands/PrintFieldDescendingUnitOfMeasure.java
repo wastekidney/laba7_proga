@@ -16,7 +16,7 @@ public class PrintFieldDescendingUnitOfMeasure extends Command{
     public void execute(String element) {
         try {
             if (element != null) throw new ElementException();
-            console.printErr(UnitOfMeasure.nameReserved());
+            console.println(UnitOfMeasure.nameReserved());
         } catch (ElementException e) {
             console.printErr("в этой команде не должны быть элементы");
         }

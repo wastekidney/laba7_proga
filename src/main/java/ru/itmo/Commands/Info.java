@@ -29,8 +29,9 @@ public class Info extends Command{
             String typeOfCollection = collectionManager.getTypeOfCollection();
             Integer SizeOfCollection = collectionManager.getSizeOfCollection();
             console.print("время первой инициализации коллекции: " + time.toString() + "\nтип коллекции: " + typeOfCollection + "\nколичество элементов в коллекции: " + SizeOfCollection.toString());
+            console.println("");
         } catch (ElementException e) {
-            console.println("в этой команде не должны быть элементы");
+            console.printErr("в этой команде не должны быть элементы");
         }
 
 

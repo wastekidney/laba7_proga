@@ -100,6 +100,6 @@ public class Product implements Validatable {
         this.partNumber = product.partNumber;
         this.manufactureCost = product.manufactureCost;
         this.unitOfMeasure = product.unitOfMeasure;
-        this.manufacturer = product.manufacturer;
+        this.manufacturer.update(product.manufacturer);
     }
 }

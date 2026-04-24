@@ -28,22 +28,22 @@ public class Main {
         collectionManager.loadCollection();
         Product.updateNextId(collectionManager);
         Organization.updateNextId(collectionManager);
-        commandManager.register("add", new Add(console, collectionManager));
-        commandManager.register("save", new Save(console, collectionManager));
-        commandManager.register("show", new Show(console, collectionManager));
-        commandManager.register("info", new Info(collectionManager, console));
-        commandManager.register("clear", new Clear(console, collectionManager));
-        commandManager.register("help", new Help(console, commandManager));
-        commandManager.register("exit", new Exit(console));
-        commandManager.register("print_field_descending_unit_of_measure", new PrintFieldDescendingUnitOfMeasure(console));
-        commandManager.register("filter_contains_name", new FilterContainsName(console, collectionManager));
-        commandManager.register("remove_by_id", new RemoveById(console, collectionManager));
-        commandManager.register("add_if_min", new AddIfMin(console, collectionManager));
-        commandManager.register("print_ascending", new PrintAscending(console, collectionManager));
-        commandManager.register("remove_greater", new RemoveGreater(console, collectionManager));
-        commandManager.register("remove_lower", new RemoveLower(console, collectionManager));
-        commandManager.register("update_id", new UpdateId(collectionManager, console));
-        commandManager.register("execute_script", new ExecuteScript(console, inputManager));
+        commandManager.register(new Add(console, collectionManager));
+        commandManager.register(new Save(console, collectionManager));
+        commandManager.register(new Show(console, collectionManager));
+        commandManager.register(new Info(collectionManager, console));
+        commandManager.register(new Clear(console, collectionManager));
+        commandManager.register(new Help(console, commandManager));
+        commandManager.register(new Exit(console));
+        commandManager.register(new PrintFieldDescendingUnitOfMeasure(console));
+        commandManager.register(new FilterContainsName(console, collectionManager));
+        commandManager.register(new RemoveById(console, collectionManager));
+        commandManager.register(new AddIfMin(console, collectionManager));
+        commandManager.register(new PrintAscending(console, collectionManager));
+        commandManager.register(new RemoveGreater(console, collectionManager));
+        commandManager.register(new RemoveLower(console, collectionManager));
+        commandManager.register(new UpdateId(collectionManager, console));
+        commandManager.register(new ExecuteScript(console, inputManager));
 
         new InputManager(console, scanner, commandManager).asked(); // если мы инициализируем то и добавляем в класс, они private.
     }

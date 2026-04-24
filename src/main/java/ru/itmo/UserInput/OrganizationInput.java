@@ -32,10 +32,10 @@ public class OrganizationInput {
         String name;
         while (true) {
             try {
-                console.print("введите имя организации");
+                if (!ScannerFile.getUseFile()) {console.print("введите имя организации");}
                 name = ScannerFile.getScanner().nextLine(); //here
-                if (name.isEmpty()) throw new EmptyInputException();
-                if (name.matches(".*\\d.*")) throw new NameFormatException();
+                if (name.isEmpty() && !ScannerFile.getUseFile()) throw new EmptyInputException();
+                if (name.matches(".*\\d.*") && !ScannerFile.getUseFile()) throw new NameFormatException();
                 break;
             } catch (EmptyInputException e) {
                 console.print("имя не может быть пустым");
@@ -51,9 +51,9 @@ public class OrganizationInput {
         Double annualTurnover;
         while (true) {
             try {
-                console.print("введите годовой оборот организации");
+                if (!ScannerFile.getUseFile()) {console.print("введите годовой оборот организации");}
                 String annualTurnoverString = ScannerFile.getScanner().nextLine(); // here
-                if (annualTurnoverString.isEmpty()) {throw new EmptyInputException();
+                if (annualTurnoverString.isEmpty() && !ScannerFile.getUseFile()) {throw new EmptyInputException();
                 }
                 annualTurnover = Double.parseDouble(annualTurnoverString);
                 break;
@@ -70,10 +70,12 @@ public class OrganizationInput {
         String organizationType;
         while (true) {
             try {
+                if (!ScannerFile.getUseFile()) {
                 console.print("введите тип организации");
                 console.print(OrganizationType.names());
+                }
                 organizationType = ScannerFile.getScanner().nextLine().toUpperCase();
-                if (organizationType.isEmpty()) {
+                if (organizationType.isEmpty() && !ScannerFile.getUseFile()) {
                     throw new EmptyInputException();
                 }
                 if (organizationType.matches(".*\\d.*")) throw new NameFormatException();

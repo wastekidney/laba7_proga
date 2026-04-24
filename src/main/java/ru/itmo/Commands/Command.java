@@ -19,5 +19,9 @@ public abstract class Command {
     }
 
     public  abstract  void execute(String element);
+    @Override
+    public String toString(){
+        return "\u001B[32m\u001B[1m"+ commandName+": \u001B[0m" +description;
+    }
 
 }

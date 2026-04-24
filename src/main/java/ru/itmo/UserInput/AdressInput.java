@@ -4,6 +4,7 @@ import ru.itmo.Collection.Address;
 import ru.itmo.Console.Console;
 import ru.itmo.UserInput.InputFromFile.ScannerFile;
 import ru.itmo.utils.EmptyInputException;
+import ru.itmo.utils.PartNumberFormatException;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -19,11 +20,14 @@ public class AdressInput {
         String officialAddress;
         while (true) {
             try {
-            console.print("введите officialAddress");
-            officialAddress = ScannerFile.getScanner().nextLine().trim();
-            if (officialAddress.isEmpty()) throw new EmptyInputException();
-            break;
-            } catch (EmptyInputException e) {
+                if (!ScannerFile.getUseFile()) {
+                console.print("введите officialAddress");
+                }
+                officialAddress = ScannerFile.getScanner().nextLine().trim();
+                if ((officialAddress.isEmpty() || officialAddress == null) && !ScannerFile.getUseFile()) {throw new PartNumberFormatException();
+                }
+                break;
+            } catch (PartNumberFormatException e) {
                 console.print("адрес не может быть пустым");
             } catch (NoSuchElementException e) {
                 console.print("адрес не распознан");

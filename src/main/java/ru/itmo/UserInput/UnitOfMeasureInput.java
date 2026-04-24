@@ -16,7 +16,9 @@ public class UnitOfMeasureInput {
     public UnitOfMeasure askUnitOfMeasure(){
         while (true) {
             try {
+                if (!ScannerFile.getUseFile()) {
                 console.print("введите unitOfMeasure" + " " + UnitOfMeasure.names());
+                }
                 String OneOfUnitOfMeasure = ScannerFile.getScanner().nextLine();
                 if (OneOfUnitOfMeasure.isEmpty()) {throw new EmptyInputException();
                 }

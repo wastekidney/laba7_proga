@@ -44,7 +44,7 @@ public class Organization implements Validatable {
         if (name == null) return false;
         if (annualTurnover == null) return false;
         if (type == null) return false;
-//        if (officialAddress == null) return false;
+        if (officialAddress == null) return false;
         return true;
     }
     @Override
@@ -65,6 +65,12 @@ public class Organization implements Validatable {
                 .max()
                 .orElse(0);
         nextId = maxId + 1;
+    }
+    public void update(Organization other) {
+        this.name = other.name;
+        this.annualTurnover = other.annualTurnover;
+        this.type = other.type;
+        this.officialAddress = other.officialAddress;
     }
 
 

@@ -15,7 +15,6 @@
     </properties>
 
     <dependencies>
-        <!-- Gson для сериализации/десериализации JSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

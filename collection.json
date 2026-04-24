@@ -1,5 +1,27 @@
 [
   {
+    "id": 8,
+    "name": "regm",
+    "coordinates": {
+      "x": 5.0,
+      "y": 6.0
+    },
+    "creationDate": "2026-04-23T17:25:55.0237571+03:00[Europe/Moscow]",
+    "price": 56.0,
+    "partNumber": "drgtrhragnrgjngjrgnaknakjngjnrrj",
+    "manufactureCost": 56.0,
+    "unitOfMeasure": "PCS",
+    "manufacturer": {
+      "id": 8,
+      "name": "rdt",
+      "annualTurnover": 5644.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "rth"
+      }
+    }
+  },
+  {
     "id": 1,
     "name": "fewf",
     "coordinates": {
@@ -66,28 +88,6 @@
     }
   },
   {
-    "id": 4,
-    "name": "cock",
-    "coordinates": {
-      "x": 5.0,
-      "y": 6.0
-    },
-    "creationDate": "2026-04-15T12:28:23.1059913+03:00[Europe/Moscow]",
-    "price": 456.0,
-    "partNumber": "439",
-    "manufactureCost": 6785.0,
-    "unitOfMeasure": "METERS",
-    "manufacturer": {
-      "id": 4,
-      "name": "www",
-      "annualTurnover": 364.0,
-      "type": "PUBLIC",
-      "officialAddress": {
-        "street": "gdrml"
-      }
-    }
-  },
-  {
     "id": 5,
     "name": "edglj",
     "coordinates": {
@@ -123,6 +123,28 @@
     "unitOfMeasure": "GRAMS",
     "manufacturer": {
       "id": 6,
+      "name": "drgh",
+      "annualTurnover": 547.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "ooo"
+      }
+    }
+  },
+  {
+    "id": 7,
+    "name": "lknfb",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2026-04-22T09:59:51.4865538+03:00[Europe/Moscow]",
+    "price": 555.0,
+    "partNumber": "5436454355555555fgnhgxnnnnnnnnngfnhngfxdhthff",
+    "manufactureCost": 9089.0,
+    "unitOfMeasure": "GRAMS",
+    "manufacturer": {
+      "id": 7,
       "name": "drgh",
       "annualTurnover": 547.0,
       "type": "PUBLIC",

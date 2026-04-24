@@ -21,9 +21,9 @@ public class Help extends Command{
     public void execute(String element) {
         try {
             if (element != null) throw new ElementException();
-            Map<String, Command> Commands = commandManager.getCommands();
-            for (String key : Commands.keySet()) {
-                console.println(key + " " + Commands.get(key).getDescription());
+            var commands = commandManager.getCommands();
+            for (Command command : commands) {
+                console.println(command.toString());
             }
         } catch (ElementException e) {
             console.printErr("в этой команде не должны быть элементы");
