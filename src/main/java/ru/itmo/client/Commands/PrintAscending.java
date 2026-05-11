@@ -9,6 +9,7 @@ import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.common.Exeption.ElementException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PrintAscending extends Command {
     private final Console console;
@@ -22,6 +23,9 @@ public class PrintAscending extends Command {
     @Override
     public void execute(String element) {
         var response = (PrintAscendingResponse) udpClient.sendReceiveMessage(new PrintAscendingRequest());
-        console.println(response.getMessage());
+        if (Objects.equals(response.getMessageError(), ""))
+            console.println(response.getMessage());
+        else
+            console.println(response.getMessageError());
     }
 }

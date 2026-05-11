@@ -7,6 +7,8 @@ import ru.itmo.common.network.request.UpdateIdRequest;
 import ru.itmo.common.network.response.UpdateIdResponse;
 import ru.itmo.client.CollectionForm.ProductInput;
 
+import java.util.Objects;
+
 public class UpdateId extends Command{
     private final Console console;
     private final UDPClient udpClient;
@@ -20,7 +22,9 @@ public class UpdateId extends Command{
     public void execute(String element) {
         Product newProduct = new ProductInput(console).askProduct();
         var response = (UpdateIdResponse) udpClient.sendReceiveMessage(new UpdateIdRequest(element, newProduct));
-        var res = (UpdateIdResponse) response;
-        console.println(res.getMessage());
+        if (Objects.equals(response.getMessageError(), ""))
+            console.println(response.getMessage());
+        else
+            console.println(response.getMessageError());
     }
 }

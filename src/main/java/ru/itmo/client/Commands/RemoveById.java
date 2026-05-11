@@ -7,6 +7,8 @@ import ru.itmo.common.network.response.RemoveByIdResponse;
 import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.common.Exeption.ElementException;
 
+import java.util.Objects;
+
 public class RemoveById extends Command{
     private final Console console;
     private final UDPClient udpClient;
@@ -19,6 +21,9 @@ public class RemoveById extends Command{
     @Override
     public void execute(String element) {
         var response = (RemoveByIdResponse) udpClient.sendReceiveMessage(new RemoveByIdRequest(element));
-        console.println(response.getMessage());
+        if (Objects.equals(response.getMessageError(), ""))
+            console.println(response.getMessage());
+        else
+            console.println(response.getMessageError());
     }
 }

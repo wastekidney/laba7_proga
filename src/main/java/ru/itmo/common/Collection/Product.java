@@ -17,7 +17,7 @@ public class Product implements Validatable, Serializable {
     private UnitOfMeasure unitOfMeasure; //Поле может быть null
     private Organization manufacturer; //Поле не может быть null
 
-    private static long nextId = 1;
+    public static long nextId = 1;
 
     public Product(String name, Coordinates coordinates,
                    java.time.ZonedDateTime creationDate, float price,
@@ -64,6 +64,12 @@ public class Product implements Validatable, Serializable {
     public String getAddress(Address address) {
         return address.getStreet();
     }
+    public long getNextId() {
+        return nextId;
+    }
+    public void setNextId(long nextId) {
+        Product.nextId = nextId;
+    }
 
     @Override
     public boolean validate() {
@@ -105,6 +111,11 @@ public class Product implements Validatable, Serializable {
         this.manufactureCost = product.manufactureCost;
         this.unitOfMeasure = product.unitOfMeasure;
         this.manufacturer.update(product.manufacturer);
+    }
+
+    public void addUpdate(Product product) {
+        product.id = nextId;
+        this.manufacturer.addUpdate(product.manufacturer);
     }
 
 }

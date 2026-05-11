@@ -10,6 +10,8 @@ import ru.itmo.common.network.response.ClearResponse;
 import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.common.Exeption.ElementException;
 
+import java.util.Objects;
+
 public class Clear extends Command{
     private final Console console;
     private final UDPClient udpClient;
@@ -24,7 +26,10 @@ public class Clear extends Command{
         try {
             if (element != null) throw new ElementException();
             var response = (ClearResponse) udpClient.sendReceiveMessage(new ClearRequest());
-            console.print(response.getMessage());
+            if (Objects.equals(response.getMessageError(), ""))
+                console.println(response.getMessage());
+            else
+                console.println(response.getMessageError());
         } catch (Exception e) {
             console.println("в этой команде не должны быть элементы");
             MainClient.logger.info(e.getMessage());

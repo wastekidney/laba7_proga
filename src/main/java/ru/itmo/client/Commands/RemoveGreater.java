@@ -7,6 +7,8 @@ import ru.itmo.common.network.response.RemoveGreaterResponse;
 import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.common.Exeption.EmptyInputException;
 
+import java.util.Objects;
+
 public class RemoveGreater extends Command {
     private final Console console;
     private final UDPClient udpClient;
@@ -19,6 +21,9 @@ public class RemoveGreater extends Command {
     @Override
     public void execute(String element) {
         var response = (RemoveGreaterResponse) udpClient.sendReceiveMessage(new RemoveGreaterRequest(element));
-        console.println(response.getMessage());
+        if (Objects.equals(response.getMessageError(), ""))
+            console.println(response.getMessage());
+        else
+            console.println(response.getMessageError());
     }
 }

@@ -17,9 +17,12 @@ public class MainServer {
     public static final Logger logger = LoggerFactory.getLogger(MainServer.class);
     public static void main(String[] args) throws IOException {
 
+
         FileManager fileManager = new FileManager();
         CollectionManager collectionManager = new CollectionManager(fileManager);
         collectionManager.loadCollection();
+        Product.updateNextId(collectionManager);
+        Organization.updateNextId(collectionManager);
         CommandManager commandManager = new CommandManager();
         commandManager.register(new Add(collectionManager));
         commandManager.register(new Show(collectionManager));
@@ -35,8 +38,6 @@ public class MainServer {
         commandManager.register(new RemoveLower(collectionManager));
         commandManager.register(new UpdateId(collectionManager));
         UDPServer udpServer = new UDPServer(InetAddress.getLoopbackAddress(), 1050, commandManager, collectionManager);
-        Product.updateNextId(collectionManager);
-        Organization.updateNextId(collectionManager);
         while (true) {
             try {
                 udpServer.receiveSendMessage();

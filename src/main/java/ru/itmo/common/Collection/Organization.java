@@ -13,7 +13,7 @@ public class Organization implements Validatable, Serializable{
     private OrganizationType type; //Поле не может быть null
     private Address officialAddress; //Поле не может быть null
 
-    private static Integer nextId = 1;
+    public static Integer nextId = 1;
 
     public Organization(String name, Double annualTurnover, OrganizationType type, Address officialAddress) {
         this.id = nextId;
@@ -70,6 +70,9 @@ public class Organization implements Validatable, Serializable{
         this.annualTurnover = other.annualTurnover;
         this.type = other.type;
         this.officialAddress = other.officialAddress;
+    }
+    public void addUpdate(Organization other) {
+        other.id = nextId;
     }
 
 

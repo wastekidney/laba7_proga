@@ -8,6 +8,7 @@ import ru.itmo.common.network.response.AddResponse;
 import ru.itmo.common.network.response.Response;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.common.Exeption.ElementException;
+import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
 
 import java.util.Comparator;
@@ -25,11 +26,13 @@ public class AddIfMin extends Command {
     public AddIfMinResponse execute(Request request) {
         StringBuilder sb = null;
         var req = (AddRequest) request;
+        req.product.setNextId(Product.nextId);
+        MainServer.logger.info(String.valueOf(Product.nextId));
         List<Product> CopyStackSortedPrice = collectionManager.getCopyStackSortedByPrice();
         if (req.product.getPrice() < CopyStackSortedPrice.stream().min(Comparator.comparing(Product::getPrice)).get().getPrice()) {
             sb = collectionManager.addStack(req.product);
         }
         assert sb != null;
-        return new AddIfMinResponse(sb.toString(), null);
+        return new AddIfMinResponse(sb.toString(), "");
     }
 }

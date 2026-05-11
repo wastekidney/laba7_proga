@@ -14,6 +14,7 @@ import ru.itmo.server.networkUDP.UDPServer;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class AddIfMin extends Command{
     private final Console console;
@@ -29,7 +30,10 @@ public class AddIfMin extends Command{
         Product product = (new ProductInput(console).askProduct());
         if (product.validate()){
             var response = (AddIfMinResponse) udpClient.sendReceiveMessage(new AddIfMinRequest(product));
-            console.println(response.getMessage());
+            if (Objects.equals(response.getMessageError(), ""))
+                console.println(response.getMessage());
+            else
+                console.println(response.getMessageError());
         } else {
             console.println("продукт не валидный");
         }

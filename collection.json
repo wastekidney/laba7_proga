@@ -1,111 +1,45 @@
 [
   {
-    "id": 8,
-    "name": "regm",
+    "id": 1,
+    "name": "drgh",
     "coordinates": {
-      "x": 5.0,
-      "y": 6.0
+      "x": 6.0,
+      "y": 7.0
     },
-    "creationDate": "2026-04-23T17:25:55.0237571+03:00[Europe/Moscow]",
-    "price": 56.0,
-    "partNumber": "drgtrhragnrgjngjrgnaknakjngjnrrj",
-    "manufactureCost": 56.0,
+    "creationDate": "2026-05-11T14:45:57.328502+03:00[Europe/Moscow]",
+    "price": 99.0,
+    "partNumber": "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+    "manufactureCost": 645.0,
     "unitOfMeasure": "PCS",
     "manufacturer": {
-      "id": 8,
-      "name": "rdt",
-      "annualTurnover": 5644.0,
-      "type": "PUBLIC",
-      "officialAddress": {
-        "street": "rth"
-      }
-    }
-  },
-  {
-    "id": 1,
-    "name": "fewf",
-    "coordinates": {
-      "x": 1.0,
-      "y": 2.0
-    },
-    "creationDate": "2026-04-16T18:19:31.4422226+03:00[Europe/Moscow]",
-    "price": 343.0,
-    "partNumber": "3443",
-    "manufactureCost": 434.0,
-    "unitOfMeasure": "GRAMS",
-    "manufacturer": {
       "id": 1,
-      "name": "rrdg",
-      "annualTurnover": 343.0,
+      "name": "kh",
+      "annualTurnover": 6.0,
       "type": "PUBLIC",
       "officialAddress": {
-        "street": "rgtnl"
+        "street": "k"
       }
     }
   },
   {
-    "id": 2,
-    "name": "pizza",
+    "id": 7,
+    "name": "lknfb",
     "coordinates": {
       "x": 1.0,
       "y": 2.0
     },
-    "creationDate": "2026-04-15T12:32:11.8871864+03:00[Europe/Moscow]",
-    "price": 99.0,
-    "partNumber": "564",
-    "manufactureCost": 345.0,
-    "unitOfMeasure": "METERS",
-    "manufacturer": {
-      "id": 2,
-      "name": "eee",
-      "annualTurnover": 654.0,
-      "type": "PUBLIC",
-      "officialAddress": {
-        "street": "lknk"
-      }
-    }
-  },
-  {
-    "id": 3,
-    "name": "loh",
-    "coordinates": {
-      "x": 1.0,
-      "y": 2.0
-    },
-    "creationDate": "2026-04-15T12:27:07.8483013+03:00[Europe/Moscow]",
-    "price": 6678.0,
-    "partNumber": "332",
-    "manufactureCost": 544.0,
+    "creationDate": "2026-04-22T09:59:51.4865538+03:00[Europe/Moscow]",
+    "price": 555.0,
+    "partNumber": "5436454355555555fgnhgxnnnnnnnnngfnhngfxdhthff",
+    "manufactureCost": 9089.0,
     "unitOfMeasure": "GRAMS",
     "manufacturer": {
-      "id": 3,
-      "name": "qqq",
-      "annualTurnover": 444.0,
+      "id": 7,
+      "name": "drgh",
+      "annualTurnover": 547.0,
       "type": "PUBLIC",
       "officialAddress": {
-        "street": "eerer"
-      }
-    }
-  },
-  {
-    "id": 5,
-    "name": "edglj",
-    "coordinates": {
-      "x": 3.0,
-      "y": 4.0
-    },
-    "creationDate": "2026-04-16T17:55:29.6843779+03:00[Europe/Moscow]",
-    "price": 22.0,
-    "partNumber": "drh",
-    "manufactureCost": 9.0,
-    "unitOfMeasure": "GRAMS",
-    "manufacturer": {
-      "id": 5,
-      "name": "rgl",
-      "annualTurnover": 543.0,
-      "type": "PUBLIC",
-      "officialAddress": {
-        "street": "klfnrg"
+        "street": "ooo"
       }
     }
   },
@@ -132,7 +66,29 @@
     }
   },
   {
-    "id": 7,
+    "id": 5,
+    "name": "edglj",
+    "coordinates": {
+      "x": 3.0,
+      "y": 4.0
+    },
+    "creationDate": "2026-04-16T17:55:29.6843779+03:00[Europe/Moscow]",
+    "price": 22.0,
+    "partNumber": "drh",
+    "manufactureCost": 9.0,
+    "unitOfMeasure": "GRAMS",
+    "manufacturer": {
+      "id": 5,
+      "name": "rgl",
+      "annualTurnover": 543.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "klfnrg"
+      }
+    }
+  },
+  {
+    "id": 4,
     "name": "lknfb",
     "coordinates": {
       "x": 1.0,
@@ -144,12 +100,100 @@
     "manufactureCost": 9089.0,
     "unitOfMeasure": "GRAMS",
     "manufacturer": {
-      "id": 7,
+      "id": 4,
       "name": "drgh",
       "annualTurnover": 547.0,
       "type": "PUBLIC",
       "officialAddress": {
         "street": "ooo"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "loh",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2026-04-15T12:27:07.8483013+03:00[Europe/Moscow]",
+    "price": 6678.0,
+    "partNumber": "332",
+    "manufactureCost": 544.0,
+    "unitOfMeasure": "GRAMS",
+    "manufacturer": {
+      "id": 3,
+      "name": "qqq",
+      "annualTurnover": 444.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "eerer"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "pizza",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2026-04-15T12:32:11.8871864+03:00[Europe/Moscow]",
+    "price": 99.0,
+    "partNumber": "564",
+    "manufactureCost": 345.0,
+    "unitOfMeasure": "METERS",
+    "manufacturer": {
+      "id": 2,
+      "name": "eee",
+      "annualTurnover": 654.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "lknk"
+      }
+    }
+  },
+  {
+    "id": 1,
+    "name": "fewf",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2026-04-16T18:19:31.4422226+03:00[Europe/Moscow]",
+    "price": 343.0,
+    "partNumber": "3443",
+    "manufactureCost": 434.0,
+    "unitOfMeasure": "GRAMS",
+    "manufacturer": {
+      "id": 1,
+      "name": "rrdg",
+      "annualTurnover": 343.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "rgtnl"
+      }
+    }
+  },
+  {
+    "id": 8,
+    "name": "yy",
+    "coordinates": {
+      "x": 9.0,
+      "y": 9.0
+    },
+    "creationDate": "2026-05-11T15:04:53.5644517+03:00[Europe/Moscow]",
+    "price": 8.0,
+    "partNumber": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    "manufactureCost": 44.0,
+    "unitOfMeasure": "PCS",
+    "manufacturer": {
+      "id": 8,
+      "name": "e",
+      "annualTurnover": 6.0,
+      "type": "PUBLIC",
+      "officialAddress": {
+        "street": "r"
       }
     }
   }

@@ -10,6 +10,8 @@ import ru.itmo.common.Exeption.ElementException;
 import ru.itmo.common.network.response.AddResponse;
 import ru.itmo.common.network.response.InfoResponse;
 
+import java.util.Objects;
+
 public class Add extends Command{
     private final Console console;
     private final UDPClient udpClient;
@@ -24,7 +26,10 @@ public class Add extends Command{
         Product product = new ProductInput(console).askProduct();
         if (product.validate()){
             var response = (AddResponse) udpClient.sendReceiveMessage(new AddRequest(product));
-            console.println(response.getMessage());
+            if (Objects.equals(response.getMessageError(), ""))
+                console.println(response.getMessage());
+            else
+                console.println(response.getMessageError());
         } else {
             console.println("продукт не создан так как не соответсвует валидации");
             MainClient.logger.info("продукт не создан так как не соответсвует валидации");
