@@ -1,14 +1,9 @@
 package ru.itmo.server.Commands;
 
-import ru.itmo.client.CollectionForm.ProductInput;
-import ru.itmo.common.Exeption.ElementException;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.request.UpdateIdRequest;
-import ru.itmo.common.network.response.Response;
 import ru.itmo.common.network.response.UpdateIdResponse;
 import ru.itmo.common.Collection.Product;
-import ru.itmo.common.Exeption.EmptyInputException;
-import ru.itmo.common.Exeption.NotFoundException;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
 

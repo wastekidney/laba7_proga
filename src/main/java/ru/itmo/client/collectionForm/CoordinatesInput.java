@@ -1,4 +1,4 @@
-package ru.itmo.client.CollectionForm;
+package ru.itmo.client.collectionForm;
 
 import ru.itmo.client.MainClient;
 import ru.itmo.common.Collection.Coordinates;

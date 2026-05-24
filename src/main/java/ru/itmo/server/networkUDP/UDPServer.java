@@ -36,7 +36,7 @@ public class UDPServer {
             try {
                 serverSocket.receive(receivePacket); // Получите данные от клиента и сохраните их в packet
             }  catch (SocketTimeoutException e) {
-                if (System.currentTimeMillis() - lastRequestTime > 60000) {
+                if (System.currentTimeMillis() - lastRequestTime > 100000) {
                     collectionManager.saveCollection();
                     System.exit(0);
                 }

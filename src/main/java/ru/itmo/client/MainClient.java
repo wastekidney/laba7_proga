@@ -27,8 +27,6 @@ public class MainClient {
             udpClient.sendReceiveMessage(new HelpRequest());
             InputManager inputManager = new InputManager(console, scanner, udpClient);
             inputManager.asked();
-            // здесь будет проверка подключения к серверу
-
         } catch (Exception e){
             logger.info("Невозможно подключиться к серверу.", e);
             System.out.println("Невозможно подключиться к серверу!");

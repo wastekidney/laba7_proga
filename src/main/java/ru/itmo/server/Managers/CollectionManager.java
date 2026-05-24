@@ -3,6 +3,7 @@ package ru.itmo.server.Managers;
 import ru.itmo.common.Collection.Organization;
 import ru.itmo.common.Collection.Product;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
@@ -17,21 +18,17 @@ public class CollectionManager {
         this.fileManager = fileManager;
     }
 
-    public void loadCollection(){
+    public void loadCollection() {
         initializationTime = LocalDateTime.now();
-        if (!fileManager.gsonBufferedRead().isEmpty()){
-            fileManager.gsonBufferedRead().stream().forEach(stack::push);
-            MainServer.logger.info("прочитано из файла, загружено в коллекцию");
-//            sortCollection();
+        try {
+            List<Product> products = ProductDbManager.loadAll();
+            stack.addAll(products);
+            MainServer.logger.info("загружено из БД: {} элементов", products.size());
+        } catch (SQLException e) {
+            MainServer.logger.error("ошибка загрузки из БД", e);
         }
     }
-//    public void sortCollection(){
-//        List<Product> sortedList = new ArrayList<>(stack);
-//        sortedList.sort(Comparator.comparing(Product::getAddress));
-//        stack.clear();
-//        sortedList.stream().forEach(stack::push);
-//        MainServer.logger.info("коллекция отсортирована по местоположению");
-//    }
+
     public StringBuilder addStack(Product product){
         StringBuilder sb = new StringBuilder();
         stack.push(product);
@@ -40,9 +37,9 @@ public class CollectionManager {
         return sb;
 
     }
-    public void saveCollection(){
-        fileManager.gsonBufferedWrite(stack);
-    }
+//    public void saveCollection(){
+//        fileManager.gsonBufferedWrite(stack);
+//    }
     public void popStack(){
         stack.pop();
     }

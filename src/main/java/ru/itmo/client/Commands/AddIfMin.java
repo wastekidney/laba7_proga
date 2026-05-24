@@ -4,16 +4,9 @@ import ru.itmo.client.networkUDP.UDPClient;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.client.Console.Console;
 import ru.itmo.common.network.request.AddIfMinRequest;
-import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.response.AddIfMinResponse;
-import ru.itmo.common.network.response.Response;
-import ru.itmo.server.Managers.CollectionManager;
-import ru.itmo.client.CollectionForm.ProductInput;
-import ru.itmo.common.Exeption.ElementException;
-import ru.itmo.server.networkUDP.UDPServer;
+import ru.itmo.client.collectionForm.ProductInput;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 public class AddIfMin extends Command{

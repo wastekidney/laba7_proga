@@ -8,10 +8,10 @@ import ru.itmo.common.network.response.AddResponse;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
 
-public class Add extends Command {
+public class Authentication extends Command {
     private final CollectionManager collectionManager;
-    public Add(CollectionManager collectionManager) {
-        super("add", "добавить новый элемент в коллекцию");
+    public Authentication(CollectionManager collectionManager) {
+        super("authentication", "проверить юзера на аутизм");
         this.collectionManager = collectionManager;
     }
 
@@ -19,8 +19,7 @@ public class Add extends Command {
     public AddResponse execute(Request request) {
         var req = (AddRequest) request;
         User user = req.getUser();
-        int userId = user.getId();
-        req.product.addUpdate(req.product, userId);
+        req.product.addUpdate(req.product, user.getId());
         StringBuilder sb = collectionManager.addStack(req.product);
         return new AddResponse(sb.toString(), "");
     }

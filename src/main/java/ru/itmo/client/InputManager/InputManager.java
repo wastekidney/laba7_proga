@@ -49,6 +49,7 @@ public class InputManager {
             put("remove_greater",   new RemoveGreater(console, client));
             put("remove_lower",     new RemoveLower(console, client));
             put("execute_script", new ExecuteScript(console, InputManager.this));
+            put("authentication", new Authentication(console, client));
         }};
     }
 

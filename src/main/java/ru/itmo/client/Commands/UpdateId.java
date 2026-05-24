@@ -5,7 +5,7 @@ import ru.itmo.common.Collection.Product;
 import ru.itmo.client.Console.Console;
 import ru.itmo.common.network.request.UpdateIdRequest;
 import ru.itmo.common.network.response.UpdateIdResponse;
-import ru.itmo.client.CollectionForm.ProductInput;
+import ru.itmo.client.collectionForm.ProductInput;
 
 import java.util.Objects;
 

@@ -15,9 +15,9 @@ import java.net.InetAddress;
 
 public class MainServer {
     public static final Logger logger = LoggerFactory.getLogger(MainServer.class);
+
+
     public static void main(String[] args) throws IOException {
-
-
         FileManager fileManager = new FileManager();
         CollectionManager collectionManager = new CollectionManager(fileManager);
         collectionManager.loadCollection();

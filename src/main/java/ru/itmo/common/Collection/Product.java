@@ -18,7 +18,7 @@ public class Product implements Validatable, Serializable {
     private Organization manufacturer; //Поле не может быть null
 
     public static long nextId = 1;
-
+    private int userId;
     public Product(String name, Coordinates coordinates,
                    java.time.ZonedDateTime creationDate, float price,
                    String partNumber, double manufactureCost,
@@ -92,6 +92,12 @@ public class Product implements Validatable, Serializable {
                 ",\nunitOfMeasure: " + unitOfMeasure + ",\nmanufacturer: " + manufacturer + "}";
 
     }
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public static void updateNextId(CollectionManager collectionManager) {
         long maxId = collectionManager.getStack().stream()
@@ -113,8 +119,9 @@ public class Product implements Validatable, Serializable {
         this.manufacturer.update(product.manufacturer);
     }
 
-    public void addUpdate(Product product) {
+    public void addUpdate(Product product, int userId) {
         product.id = nextId;
+        product.setUserId(userId);
         this.manufacturer.addUpdate(product.manufacturer);
     }
 
