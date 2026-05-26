@@ -16,6 +16,7 @@ public class Help extends Command {
 
     @Override
     public HelpResponse execute(Request request) {
+        System.out.println("Сервер: получена команда help");
         StringBuilder sb = new StringBuilder();
         StringBuilder sbError = new StringBuilder();
         try {
@@ -28,6 +29,6 @@ public class Help extends Command {
             MainServer.logger.info(messageError);
             sbError.append(messageError);
         }
-        return new HelpResponse(sb.toString(), sbError.toString());
+        return new HelpResponse("Доступные команды: add, info, show, clear, help, add_if_min, authentication, remove_by_id, remove_greater, update_id\");", sbError.toString());
     }
 }

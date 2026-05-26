@@ -1,11 +1,15 @@
 package ru.itmo.server.Commands;
 
+import ru.itmo.common.Collection.User.User;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.request.UpdateIdRequest;
 import ru.itmo.common.network.response.UpdateIdResponse;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
+import ru.itmo.server.Managers.ProductDbManager;
+
+import java.sql.SQLException;
 
 public class UpdateId extends Command {
     private final CollectionManager collectionManager;
@@ -16,20 +20,29 @@ public class UpdateId extends Command {
 
     @Override
     public UpdateIdResponse execute(Request request) {
-        StringBuilder sbError = new StringBuilder();
-        StringBuilder sb = new StringBuilder();
+        var req = (UpdateIdRequest) request;
+        User user = request.getUser();
+        long id;
         try {
-            var req = (UpdateIdRequest) request;
-            Long CurrentId = Long.parseLong(req.id);
-            Product product = collectionManager.getById(CurrentId);
-            product.update(req.newProduct);
-            sb.append("продукт обновлен");
-        } catch (Exception e) {
-            String messageError = "ошибка:" + e.getMessage();
-            MainServer.logger.info(messageError);
-            sbError.append(messageError);
+            id = Long.parseLong(req.id);
+        } catch (NumberFormatException e) {
+            return new UpdateIdResponse("", "id должен быть числом");
         }
-        return new UpdateIdResponse(sb.toString(), sbError.toString());
+        Product product = collectionManager.getById(id);
+        if (product == null) {
+            return new UpdateIdResponse("", "Продукт не найден");
+        }
+        if (product.getUserId() != user.getId()) {
+            return new UpdateIdResponse("", "Вы не владелец");
+        }
+        try {
+            ProductDbManager.update(id, req.newProduct, user.getId());
+            req.newProduct.setId(id);
+            collectionManager.updateProduct(req.newProduct);
+            return new UpdateIdResponse("Продукт обновлён", "");
+        } catch (SQLException e) {
+            return new UpdateIdResponse("", "Ошибка БД: " + e.getMessage());
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.common.Validatable.Validatable;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class Product implements Validatable, Serializable {
@@ -17,13 +18,12 @@ public class Product implements Validatable, Serializable {
     private UnitOfMeasure unitOfMeasure; //Поле может быть null
     private Organization manufacturer; //Поле не может быть null
 
-    public static long nextId = 1;
     private int userId;
     public Product(String name, Coordinates coordinates,
                    java.time.ZonedDateTime creationDate, float price,
                    String partNumber, double manufactureCost,
                    UnitOfMeasure unitOfMeasure, Organization manufacturer){
-        this.id = nextId;
+        this.id = 0;
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
@@ -40,7 +40,7 @@ public class Product implements Validatable, Serializable {
     public String getName() {
         return this.name;
     }
-    public Coordinates getCoordinates(Coordinates coordinates) {
+    public Coordinates getCoordinates() {
         return coordinates;
     }
     public java.time.ZonedDateTime getCreationDate(java.time.ZonedDateTime creationDate) {
@@ -49,13 +49,13 @@ public class Product implements Validatable, Serializable {
     public float getPrice() {
         return this.price;
     }
-    public String getPartNumber(String partNumber) {
+    public String getPartNumber() {
         return partNumber;
     }
     public double getManufactureCost() {
-        return this.manufactureCost;
+        return manufactureCost;
     }
-    public UnitOfMeasure getUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+    public UnitOfMeasure getUnitOfMeasure() {
         return unitOfMeasure;
     }
     public Organization getManufacturer() {
@@ -64,16 +64,10 @@ public class Product implements Validatable, Serializable {
     public String getAddress(Address address) {
         return address.getStreet();
     }
-    public long getNextId() {
-        return nextId;
-    }
-    public void setNextId(long nextId) {
-        Product.nextId = nextId;
-    }
+
 
     @Override
     public boolean validate() {
-        if (id <= 0) return false;
         if (name == null || name.isEmpty()) return false;
         if (coordinates == null) return false;
         if (creationDate == null) return false;
@@ -99,30 +93,62 @@ public class Product implements Validatable, Serializable {
         this.userId = userId;
     }
 
-    public static void updateNextId(CollectionManager collectionManager) {
-        long maxId = collectionManager.getStack().stream()
-                .filter(Objects::nonNull)
-                .mapToLong(Product::getId)
-                .max()
-                .orElse(0L);
-        nextId = maxId + 1;
-    }
-
-    public void update(Product product) {
-        this.name = product.name;
-        this.coordinates = product.coordinates;
-        this.creationDate = product.creationDate;
-        this.price = product.price;
-        this.partNumber = product.partNumber;
-        this.manufactureCost = product.manufactureCost;
-        this.unitOfMeasure = product.unitOfMeasure;
-        this.manufacturer.update(product.manufacturer);
-    }
 
     public void addUpdate(Product product, int userId) {
-        product.id = nextId;
+        product.id = 0;
         product.setUserId(userId);
-        this.manufacturer.addUpdate(product.manufacturer);
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setCreationDate(ZonedDateTime zonedDateTime) {
+        this.creationDate = zonedDateTime;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setPartNumber(String partNumber) {
+        this.partNumber = partNumber;
+    }
+
+    public void setManufactureCost(double manufactureCost) {
+        this.manufactureCost = manufactureCost;
+    }
+
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public void setManufacturer(Organization organization) {
+        this.manufacturer = organization;
+    }
+
+    public Product(long id, String name, Coordinates coordinates,
+                   java.time.ZonedDateTime creationDate, float price,
+                   String partNumber, Double manufactureCost,
+                   UnitOfMeasure unitOfMeasure, Organization manufacturer,
+                   int userId) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.price = price;
+        this.partNumber = partNumber;
+        this.manufactureCost = manufactureCost;
+        this.unitOfMeasure = unitOfMeasure;
+        this.manufacturer = manufacturer;
+        this.userId = userId;
+    }
 }

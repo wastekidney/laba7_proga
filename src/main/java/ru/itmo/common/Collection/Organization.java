@@ -13,10 +13,10 @@ public class Organization implements Validatable, Serializable{
     private OrganizationType type; //Поле не может быть null
     private Address officialAddress; //Поле не может быть null
 
-    public static Integer nextId = 1;
+
 
     public Organization(String name, Double annualTurnover, OrganizationType type, Address officialAddress) {
-        this.id = nextId;
+        this.id = null;
         this.name = name;
         this.annualTurnover = annualTurnover;
         this.type = type;
@@ -31,7 +31,7 @@ public class Organization implements Validatable, Serializable{
     public Double getAnnualTurnover(){
         return annualTurnover;
     }
-    public OrganizationType getType(OrganizationType type){
+    public OrganizationType getType(){
         return type;
     }
 
@@ -39,9 +39,7 @@ public class Organization implements Validatable, Serializable{
 
     @Override
     public boolean validate() {
-        if (id > 0 || id == null) return false;
-        if (name == null) return false;
-        if (annualTurnover == null) return false;
+        if (name == null || name.isEmpty()) return false;
         if (type == null) return false;
         if (officialAddress == null) return false;
         return true;
@@ -55,25 +53,35 @@ public class Organization implements Validatable, Serializable{
                 ",\nofficialAddress: " + officialAddress
                 ;
     }
-    public static void updateNextId(CollectionManager collectionManager) {
-        int maxId = collectionManager.getStack().stream()
-                .filter(Objects::nonNull)
-                .map(Product::getManufacturer)
-                .filter(Objects::nonNull)
-                .mapToInt(Organization::getId)
-                .max()
-                .orElse(0);
-        nextId = maxId + 1;
-    }
+
     public void update(Organization other) {
         this.name = other.name;
         this.annualTurnover = other.annualTurnover;
         this.type = other.type;
         this.officialAddress = other.officialAddress;
     }
-    public void addUpdate(Organization other) {
-        other.id = nextId;
+
+    public Address getOfficialAddress() {
+
+        return this.officialAddress;
     }
 
+    public void setName(String organizationName) {
+        this.name = organizationName;
+    }
 
+    public void setAnnualTurnover(double turnover) {
+        this.annualTurnover = turnover;
+    }
+
+    public void setType(OrganizationType organizationType) {
+        this.type = organizationType;
+    }
+
+    public void setOfficialAddress(Address address) {
+        this.officialAddress = address;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

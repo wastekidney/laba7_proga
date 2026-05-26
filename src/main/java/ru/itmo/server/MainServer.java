@@ -2,27 +2,28 @@ package ru.itmo.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.itmo.common.Collection.Organization;
-import ru.itmo.common.Collection.Product;
 import ru.itmo.server.Commands.*;
 import ru.itmo.server.Managers.CollectionManager;
 import ru.itmo.server.Managers.CommandManager;
-import ru.itmo.server.Managers.FileManager;
+import ru.itmo.server.handlers.DatabaseHandler;
 import ru.itmo.server.networkUDP.UDPServer;
 
 import java.io.IOException;
-import java.net.InetAddress;
 
 public class MainServer {
     public static final Logger logger = LoggerFactory.getLogger(MainServer.class);
 
 
     public static void main(String[] args) throws IOException {
-        FileManager fileManager = new FileManager();
-        CollectionManager collectionManager = new CollectionManager(fileManager);
-        collectionManager.loadCollection();
-        Product.updateNextId(collectionManager);
-        Organization.updateNextId(collectionManager);
+        DatabaseHandler.configure(
+                "jdbc:postgresql://pg:5432/studs",
+                "s466072",
+                "AgOUeo6JlsbltUHA"
+        );
+        CollectionManager collectionManager = new CollectionManager();
+//        collectionManager.loadCollection();
+//        Product.updateNextId(collectionManager);
+//        Organization.updateNextId(collectionManager);
         CommandManager commandManager = new CommandManager();
         commandManager.register(new Add(collectionManager));
         commandManager.register(new Show(collectionManager));
@@ -37,16 +38,15 @@ public class MainServer {
         commandManager.register(new RemoveGreater(collectionManager));
         commandManager.register(new RemoveLower(collectionManager));
         commandManager.register(new UpdateId(collectionManager));
-        UDPServer udpServer = new UDPServer(InetAddress.getLoopbackAddress(), 1050, commandManager, collectionManager);
-        while (true) {
+        commandManager.register(new Authentication());
+        UDPServer udpServer = new UDPServer(1050, commandManager);
+
             try {
-                udpServer.receiveSendMessage();
+                udpServer.start();
             }  catch (Exception e) {
                 MainServer.logger.error(e.getMessage());
-                break;
             }
-        }
-        new Save(collectionManager).execute();
+//        new Save(collectionManager).execute();
 
     }
 }

@@ -6,7 +6,9 @@ import ru.itmo.client.Console.Console;
 import ru.itmo.client.InputFromFile.ScannerFile;
 import ru.itmo.client.InputManager.InputManager;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.HelpRequest;
+import ru.itmo.common.network.request.InfoRequest;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -24,7 +26,7 @@ public class MainClient {
 //        Organization.updateNextId(collectionManager);
         try {
             UDPClient udpClient = new UDPClient(InetAddress.getLoopbackAddress(), port);
-            udpClient.sendReceiveMessage(new HelpRequest());
+            new InfoRequest(SessionHandler.getCurrentUser());
             InputManager inputManager = new InputManager(console, scanner, udpClient);
             inputManager.asked();
         } catch (Exception e){

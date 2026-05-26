@@ -1,12 +1,15 @@
 package ru.itmo.server.Commands;
 
+import ru.itmo.common.Collection.User.User;
 import ru.itmo.common.network.request.AddRequest;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.response.AddIfMinResponse;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
+import ru.itmo.server.Managers.ProductDbManager;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,15 +23,33 @@ public class AddIfMin extends Command {
 
     @Override
     public AddIfMinResponse execute(Request request) {
-        StringBuilder sb = null;
         var req = (AddRequest) request;
-        req.product.setNextId(Product.nextId);
-        MainServer.logger.info(String.valueOf(Product.nextId));
-        List<Product> CopyStackSortedPrice = collectionManager.getCopyStackSortedByPrice();
-        if (req.product.getPrice() < CopyStackSortedPrice.stream().min(Comparator.comparing(Product::getPrice)).get().getPrice()) {
-            sb = collectionManager.addStack(req.product);
+        User user = req.getUser();
+        int userId = user.getId();
+        var stack = collectionManager.getStack();
+        if (stack.isEmpty()) {
+            try {
+                ProductDbManager.add(req.product, userId);
+                collectionManager.addStack(req.product);
+                return new AddIfMinResponse("Элемент добавлен (коллекция была пуста)", "");
+            } catch (SQLException e) {
+                return new AddIfMinResponse("", "Ошибка БД: " + e.getMessage());
+            }
+        } else {
+            Product minProduct = stack.stream()
+                    .min(Comparator.comparing(Product::getPrice))
+                    .orElse(null);
+            if (minProduct != null && req.product.getPrice() < minProduct.getPrice()) {
+                try {
+                    ProductDbManager.add(req.product, userId);
+                    collectionManager.addStack(req.product);
+                    return new AddIfMinResponse("Элемент добавлен, так как его цена меньше минимальной", "");
+                } catch (SQLException e) {
+                    return new AddIfMinResponse("", "Ошибка БД: " + e.getMessage());
+                }
+            } else {
+                return new AddIfMinResponse("Элемент не добавлен: его цена не меньше минимальной", "");
+            }
         }
-        assert sb != null;
-        return new AddIfMinResponse(sb.toString(), "");
     }
 }

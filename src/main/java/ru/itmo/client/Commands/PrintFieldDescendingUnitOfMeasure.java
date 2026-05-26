@@ -1,6 +1,7 @@
 package ru.itmo.client.Commands;
 
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.Collection.UnitOfMeasure;
 import ru.itmo.client.Console.Console;
 import ru.itmo.common.Exeption.ElementException;
@@ -20,7 +21,7 @@ public class PrintFieldDescendingUnitOfMeasure extends Command{
 
     @Override
     public void execute(String element) {
-        var response = (PrintFieldDescendingUnitOfMeasureResponse)  udpClient.sendReceiveMessage(new PrintFieldDescendingUnitOfMeasureRequest());
+        var response = (PrintFieldDescendingUnitOfMeasureResponse)  udpClient.sendReceiveMessage(new PrintFieldDescendingUnitOfMeasureRequest(SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

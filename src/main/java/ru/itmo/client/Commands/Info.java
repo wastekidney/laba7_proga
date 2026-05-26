@@ -2,6 +2,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.InfoRequest;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.response.InfoResponse;
@@ -22,7 +23,7 @@ public class Info extends Command{
     @Override
     public void execute(String element) {
         try {
-            var response = (InfoResponse) udpClient.sendReceiveMessage(new InfoRequest());
+            var response = (InfoResponse) udpClient.sendReceiveMessage(new InfoRequest(SessionHandler.getCurrentUser()));
             console.println(response.getInfo());
 
         } catch (ElementException e) {

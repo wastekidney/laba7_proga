@@ -1,7 +1,9 @@
 package ru.itmo.common.network.request;
 
+import ru.itmo.common.Collection.User.User;
+
 public class PrintAscendingRequest extends Request{
-    public PrintAscendingRequest() {
-        super("print_ascending");
+    public PrintAscendingRequest(User user) {
+        super("print_ascending",  user);
     }
 }

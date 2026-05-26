@@ -1,6 +1,7 @@
 package ru.itmo.client.Commands;
 
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.client.Console.Console;
 import ru.itmo.common.network.request.PrintAscendingRequest;
@@ -22,7 +23,7 @@ public class PrintAscending extends Command {
 
     @Override
     public void execute(String element) {
-        var response = (PrintAscendingResponse) udpClient.sendReceiveMessage(new PrintAscendingRequest());
+        var response = (PrintAscendingResponse) udpClient.sendReceiveMessage(new PrintAscendingRequest(SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

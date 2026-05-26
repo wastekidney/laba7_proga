@@ -3,6 +3,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.request.ShowRequest;
 import ru.itmo.common.network.response.ShowResponse;
@@ -24,7 +25,7 @@ public class Show extends Command{
     public void execute(String element) {
         try {
             if (element != null) throw new ElementException();
-            var response = (ShowResponse) udpClient.sendReceiveMessage(new ShowRequest());
+            var response = (ShowResponse) udpClient.sendReceiveMessage(new ShowRequest(SessionHandler.getCurrentUser()));
             if (Objects.equals(response.getMessageError(), ""))
                 console.println(response.getMessage());
             else

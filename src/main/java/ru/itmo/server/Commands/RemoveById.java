@@ -1,11 +1,15 @@
 package ru.itmo.server.Commands;
 
+import ru.itmo.common.Collection.User.User;
 import ru.itmo.common.network.request.RemoveByIdRequest;
 import ru.itmo.common.network.request.Request;
 import ru.itmo.common.network.response.RemoveByIdResponse;
 import ru.itmo.common.Exeption.ElementException;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
+import ru.itmo.server.Managers.ProductDbManager;
+
+import java.sql.SQLException;
 
 public class RemoveById extends Command {
     private final CollectionManager collectionManager;
@@ -16,17 +20,23 @@ public class RemoveById extends Command {
 
     @Override
     public RemoveByIdResponse execute(Request request) {
-        StringBuilder sbError = new StringBuilder();
-        StringBuilder sb = new StringBuilder();
+        var req = (RemoveByIdRequest) request;
+        User user = request.getUser();
+        long id;
         try {
-            var req = (RemoveByIdRequest) request;
-            collectionManager.removeById(req.id);
-            sb.append("удален элемент с id: ").append(req.id);
-        } catch (Exception e) {
-            String messageError = "ошибка:" + e.getMessage();
-            MainServer.logger.info(messageError);
-            sbError.append(messageError);
+            id = Long.parseLong(req.id);
+        } catch (NumberFormatException e) {
+            return new RemoveByIdResponse("", "id должен быть числом");
         }
-        return new RemoveByIdResponse(sb.toString(), sbError.toString());
+        try {
+            boolean deleted = ProductDbManager.deleteById(id, user.getId());
+            if (!deleted) {
+                return new RemoveByIdResponse("", "Объект не найден или не принадлежит вам");
+            }
+            collectionManager.removeProductById(id, user.getId());
+            return new RemoveByIdResponse("Элемент удалён", "");
+        } catch (SQLException e) {
+            return new RemoveByIdResponse("", "Ошибка: " + e.getMessage());
+        }
     }
 }

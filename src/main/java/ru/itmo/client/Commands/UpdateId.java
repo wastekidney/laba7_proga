@@ -1,6 +1,7 @@
 package ru.itmo.client.Commands;
 
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.Collection.Product;
 import ru.itmo.client.Console.Console;
 import ru.itmo.common.network.request.UpdateIdRequest;
@@ -21,7 +22,7 @@ public class UpdateId extends Command{
     @Override
     public void execute(String element) {
         Product newProduct = new ProductInput(console).askProduct();
-        var response = (UpdateIdResponse) udpClient.sendReceiveMessage(new UpdateIdRequest(element, newProduct));
+        var response = (UpdateIdResponse) udpClient.sendReceiveMessage(new UpdateIdRequest(element, newProduct, SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

@@ -2,6 +2,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.RemoveByIdRequest;
 import ru.itmo.common.network.response.RemoveByIdResponse;
 import ru.itmo.server.Managers.CollectionManager;
@@ -20,7 +21,7 @@ public class RemoveById extends Command{
 
     @Override
     public void execute(String element) {
-        var response = (RemoveByIdResponse) udpClient.sendReceiveMessage(new RemoveByIdRequest(element));
+        var response = (RemoveByIdResponse) udpClient.sendReceiveMessage(new RemoveByIdRequest(element, SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

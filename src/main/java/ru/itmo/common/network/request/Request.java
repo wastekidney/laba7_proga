@@ -20,6 +20,10 @@ public abstract class Request implements Serializable {
     public  User getUser() {
         return user;
     }
+    public Integer getId(){
+        return user.getId();
+    }
+
 
     public byte[] getBytes() {
         return name.getBytes();

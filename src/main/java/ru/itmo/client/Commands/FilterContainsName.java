@@ -2,6 +2,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.FilterContainsNameRequest;
 import ru.itmo.common.network.response.FilterContainsNameResponse;
 import ru.itmo.server.Managers.CollectionManager;
@@ -20,7 +21,7 @@ public class FilterContainsName extends Command {
 
     @Override
     public void execute(String element) {
-        var response = (FilterContainsNameResponse) udpClient.sendReceiveMessage(new FilterContainsNameRequest(element));
+        var response = (FilterContainsNameResponse) udpClient.sendReceiveMessage(new FilterContainsNameRequest(element, SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

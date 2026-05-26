@@ -2,6 +2,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.RemoveGreaterRequest;
 import ru.itmo.common.network.response.RemoveGreaterResponse;
 import ru.itmo.server.Managers.CollectionManager;
@@ -20,7 +21,7 @@ public class RemoveGreater extends Command {
 
     @Override
     public void execute(String element) {
-        var response = (RemoveGreaterResponse) udpClient.sendReceiveMessage(new RemoveGreaterRequest(element));
+        var response = (RemoveGreaterResponse) udpClient.sendReceiveMessage(new RemoveGreaterRequest(element, SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

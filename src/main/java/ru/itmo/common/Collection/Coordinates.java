@@ -17,7 +17,7 @@ public class Coordinates implements Validatable, Serializable {
     public Double getX(){
         return x;
     }
-    public float getY(float y){
+    public float getY(){
         return y;
     }
 
@@ -30,5 +30,12 @@ public class Coordinates implements Validatable, Serializable {
     @Override
     public String toString(){
         return "x: " + x + ",\ny: " + y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+    public void setY(float y) {
+        this.y = y;
     }
 }

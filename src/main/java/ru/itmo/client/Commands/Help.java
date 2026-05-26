@@ -2,8 +2,12 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.HelpRequest;
+import ru.itmo.common.network.request.InfoRequest;
 import ru.itmo.common.network.response.HelpResponse;
+import ru.itmo.common.network.response.InfoResponse;
+import ru.itmo.common.network.response.Response;
 import ru.itmo.server.Managers.CommandManager;
 import ru.itmo.common.Exeption.ElementException;
 
@@ -21,12 +25,9 @@ public class Help extends Command{
     @Override
     public void execute(String element) {
         try {
-            if (element != null) throw new ElementException();
-            var response = (HelpResponse) udpClient.sendReceiveMessage(new HelpRequest());
-            if (Objects.equals(response.getMessageError(), ""))
-                console.println(response.getMessage());
-            else
-                console.println(response.getMessageError());
+            var response = (HelpResponse) udpClient.sendReceiveMessage(new HelpRequest(SessionHandler.getCurrentUser()));
+            console.println(response.getMessage());
+
         } catch (ElementException e) {
             console.printErr("в этой команде не должны быть элементы");
         }

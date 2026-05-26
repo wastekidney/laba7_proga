@@ -1,5 +1,7 @@
 package ru.itmo.server.Commands;
 
+import ru.itmo.common.Collection.Product;
+import ru.itmo.common.Collection.User.User;
 import ru.itmo.common.Exeption.ElementException;
 import ru.itmo.common.network.request.RemoveGreaterRequest;
 import ru.itmo.common.network.request.Request;
@@ -7,6 +9,10 @@ import ru.itmo.common.network.response.RemoveGreaterResponse;
 import ru.itmo.common.Exeption.EmptyInputException;
 import ru.itmo.server.MainServer;
 import ru.itmo.server.Managers.CollectionManager;
+import ru.itmo.server.Managers.ProductDbManager;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class RemoveGreater extends Command {
 
@@ -17,17 +23,20 @@ public class RemoveGreater extends Command {
     }
     @Override
     public RemoveGreaterResponse execute(Request request) {
-        StringBuilder sbError = new StringBuilder();
-        StringBuilder sb = new StringBuilder();
+        var req = (RemoveGreaterRequest) request;
+        User user = req.getUser();
+        float threshold;
         try {
-            var req = (RemoveGreaterRequest) request;
-            collectionManager.removeGreater(req.price);
-            sb.append("элементы коллекции, чья цена больше ").append(req.price).append(" были удалены");
-        } catch (Exception e) {
-            String messageError = "ошибка:" + e.getMessage();
-            MainServer.logger.info(messageError);
-            sbError.append(messageError);
+            threshold = Float.parseFloat(req.price);
+        } catch (NumberFormatException e) {
+            return new RemoveGreaterResponse("", "Некорректная цена");
         }
-        return new RemoveGreaterResponse(sb.toString(), sbError.toString());
+        try {
+            int deletedCount = ProductDbManager.removeGreaterByUser(threshold, user.getId());
+            collectionManager.removeGreaterByUser(threshold, user.getId());
+            return new RemoveGreaterResponse("Удалено элементов: " + deletedCount, "");
+        } catch (SQLException e) {
+            return new RemoveGreaterResponse("", "Ошибка БД: " + e.getMessage());
+        }
     }
 }

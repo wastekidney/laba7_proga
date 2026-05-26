@@ -9,7 +9,7 @@ CREATE TABLE users (
                        login TEXT UNIQUE NOT NULL,
                        password_hash TEXT NOT NULL
 );
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+CREATE SEQUENCE product_id_seq;
 
 CREATE TABLE address (
                          id INTEGER PRIMARY KEY DEFAULT nextval('address_id_seq'),
@@ -37,20 +37,20 @@ CREATE TABLE organization (
 ALTER SEQUENCE organization_id_seq OWNED BY organization.id;
 
 CREATE TABLE product (
-                         id BIGINT PRIMARY KEY DEFAULT nextval('product_id_seq'),
+                         id BIGSERIAL PRIMARY KEY,
                          name TEXT NOT NULL,
-                         coordinates_id INTEGER NOT NULL REFERENCES coordinates(id),
-                         creation_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                         x DOUBLE PRECISION NOT NULL,
+                         y REAL NOT NULL,
+                         creation_date TIMESTAMPTZ DEFAULT NOW(),
                          price REAL NOT NULL,
                          part_number TEXT NOT NULL UNIQUE,
                          manufacture_cost DOUBLE PRECISION,
                          unit_of_measure TEXT,
-                         manufacturer_id INTEGER NOT NULL REFERENCES organization(id),
-                         user_id INTEGER NOT NULL REFERENCES users(id),
-                         CONSTRAINT chk_product_name CHECK (name <> ''),
-                         CONSTRAINT chk_price_positive CHECK (price > 0),
-                         CONSTRAINT chk_part_number_length CHECK (char_length(part_number) BETWEEN 26 AND 67),
-                         CONSTRAINT chk_unit_of_measure CHECK (unit_of_measure IS NULL OR unit_of_measure IN ('KILOGRAMS', 'METERS', 'PCS', 'LITERS', 'GRAMS'))
+                         organization_name TEXT NOT NULL,
+                         annual_turnover DOUBLE PRECISION,
+                         organization_type TEXT,
+                         street TEXT,
+                         user_id INTEGER NOT NULL REFERENCES users(id)
 );
 ALTER SEQUENCE product_id_seq OWNED BY product.id;
 

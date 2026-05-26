@@ -51,22 +51,6 @@ public class DbUsersManager {
         return null;
     }
 
-    public static User authenticateUser(Connection connection, User user) throws SQLException {
-        String sql = "SELECT id, password_hash FROM users WHERE login = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, user.getName());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                String storedHash = rs.getString("password_hash");
-                if (storedHash.equals(hashPassword(user.getPassword()))) {
-                    int id = rs.getInt("id");
-                    return new User(id, user.getName(), null);
-                }
-            }
-        }
-        throw new SQLException("Неверный логин или пароль");
-    }
-
     private static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-384");
@@ -78,6 +62,15 @@ public class DbUsersManager {
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean userExists(Connection connection, String login) throws SQLException {
+        String sql = "SELECT id FROM users WHERE login = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
         }
     }
 }

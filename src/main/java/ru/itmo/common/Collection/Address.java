@@ -25,4 +25,8 @@ public class Address implements Validatable, Serializable {
     public String toString(){
         return street;
     }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
 }

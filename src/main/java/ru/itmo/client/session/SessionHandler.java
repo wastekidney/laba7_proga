@@ -3,13 +3,19 @@ package ru.itmo.client.session;
 import ru.itmo.common.Collection.User.User;
 
 public class SessionHandler {
-    public static User currentUser = null;
 
+    private static User currentUser;
+
+    public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
     public static User getCurrentUser() {
         return currentUser;
     }
-
-    public static void setCurrentUser(User currentUser) {
-        SessionHandler.currentUser = currentUser;
+    public static boolean isAuthorized() {
+        return currentUser != null;
+    }
+    public static void clear() {
+        currentUser = null;
     }
 }

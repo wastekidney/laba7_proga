@@ -2,6 +2,7 @@ package ru.itmo.client.Commands;
 
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
 import ru.itmo.common.network.request.RemoveLowerRequest;
 import ru.itmo.common.network.response.RemoveLowerResponse;
 import ru.itmo.server.Managers.CollectionManager;
@@ -20,7 +21,7 @@ public class RemoveLower extends Command {
 
     @Override
     public void execute(String element) {
-        var response = (RemoveLowerResponse) udpClient.sendReceiveMessage(new RemoveLowerRequest(element));
+        var response = (RemoveLowerResponse) udpClient.sendReceiveMessage(new RemoveLowerRequest(element, SessionHandler.getCurrentUser()));
         if (Objects.equals(response.getMessageError(), ""))
             console.println(response.getMessage());
         else

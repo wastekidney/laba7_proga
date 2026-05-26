@@ -5,7 +5,7 @@ import ru.itmo.common.Validatable.Validatable;
 import java.io.Serializable;
 
 public class User implements Validatable, Serializable {
-    private final int id;
+    private int id;
     private final String name;
     private final String password;
 
@@ -29,6 +29,11 @@ public class User implements Validatable, Serializable {
 
     @Override
     public boolean validate() {
-        return false;
+        return name != null && !name.trim().isEmpty()
+                && password != null && !password.trim().isEmpty();
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

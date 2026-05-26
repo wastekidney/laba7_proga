@@ -3,6 +3,8 @@ package ru.itmo.client.Commands;
 import ru.itmo.client.Console.Console;
 import ru.itmo.client.MainClient;
 import ru.itmo.client.networkUDP.UDPClient;
+import ru.itmo.client.session.SessionHandler;
+import ru.itmo.common.Collection.User.User;
 import ru.itmo.common.network.request.AddRequest;
 import ru.itmo.common.network.request.ClearRequest;
 import ru.itmo.common.network.response.AddResponse;
@@ -25,7 +27,8 @@ public class Clear extends Command{
     public void execute(String element) {
         try {
             if (element != null) throw new ElementException();
-            var response = (ClearResponse) udpClient.sendReceiveMessage(new ClearRequest());
+
+            var response = (ClearResponse) udpClient.sendReceiveMessage(new ClearRequest(SessionHandler.getCurrentUser()));
             if (Objects.equals(response.getMessageError(), ""))
                 console.println(response.getMessage());
             else
